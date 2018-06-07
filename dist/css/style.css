@@ -20,6 +20,7 @@ body {
   line-height: 1.6;
   color: #655A56;
   background-image: linear-gradient(to right bottom, #FBDB89, #F48982);
+  /* background-image: url(https://pic2.zhimg.com/50/v2-72746871921d25068cfc7d8126bcfd4e_hd.jpg); */
   background-size: cover;
   background-repeat: no-repeat;
   min-height: calc(100vh - 2 * 4vw); }
