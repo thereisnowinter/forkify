@@ -26,7 +26,7 @@ body {
   min-height: calc(100vh - 2 * 4vw); }
 
 .container {
-  max-width: 120rem;
+  max-width: 100rem;
   margin: 4vw auto;
   background-color: #fff;
   border-radius: 6px;
@@ -36,11 +36,11 @@ body {
   grid-template-rows: 10rem minmax(100rem, auto);
   grid-template-columns: 1.1fr 2fr 1.1fr;
   grid-template-areas: "head head head" "list recipe shopping"; }
-  @media only screen and (max-width: 68.75em) {
+  /* @media only screen and (max-width: 68.75em) {
     .container {
       width: 100%;
       margin: 0;
-      border-radius: 0; } }
+      border-radius: 0; } } */
 
 .btn, .btn-small, .btn-small:link, .btn-small:visited {
   background-image: linear-gradient(to right bottom, #FBDB89, #F48982);
