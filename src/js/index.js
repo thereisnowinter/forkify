@@ -1,6 +1,7 @@
 import Search from './models/Search'
 import Recipe from './models/Recipe'
 import * as searchView from './views/searchView'
+import * as recipeView from './views/recipeView'
 import {
   elements,
   renderLoader,
@@ -36,7 +37,7 @@ const controlSearch = async () => {
       console.log('result', state.search.results)
       searchView.renderResults(state.search.results)
       clearLoader()
-    } catch(error) {
+    } catch (error) {
       alert('something wrong with the search')
       clearLoader()
     }
@@ -66,6 +67,11 @@ const controlRecipe = async () => {
   console.log(id)
   if (id) {
     // prepare UI for changes
+    recipeView.clearRecipe()
+    renderLoader(elements.recipe)
+
+    // highlight selected search item
+    if (state.search) searchView.highlightSelected(id)
 
     // create new recipe object
     state.recipe = new Recipe(id)
@@ -80,6 +86,8 @@ const controlRecipe = async () => {
 
       // render recipe
       console.log(state.recipe)
+      clearLoader()
+      recipeView.renderRecipe(state.recipe)
     } catch (error) {
       alert('Error processing  recipe')
     }
@@ -91,3 +99,26 @@ const controlRecipe = async () => {
 // window.addEventListener('load', controlRecipe)
 
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe))
+
+// handle recipe button clicks
+elements.recipe.addEventListener('click', e => {
+  if (e.target.matches('.btn-decrease, .btn-decrease *')) {
+    // Decrease button is clicked
+    if (state.recipe.servings > 1) {
+      state.recipe.updateServings('dec');
+      recipeView.updateServingsIngredients(state.recipe);
+    }
+  } else if (e.target.matches('.btn-increase, .btn-increase *')) {
+    // Increase button is clicked
+    state.recipe.updateServings('inc');
+    recipeView.updateServingsIngredients(state.recipe);
+  // } else if (e.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
+  //   // Add ingredients to shopping list
+  //   controlList();
+  // } else if (e.target.matches('.recipe__love, .recipe__love *')) {
+  //   // Like controller
+  //   controlLike();
+  // }
+  }
+  console.log(state.recipe)
+})
